@@ -1,3 +1,9 @@
+# Temporaries
+/dist/
+/docs/
+/backup/
+/*-lock.yaml
+
 # Logs
 logs
 *.log
