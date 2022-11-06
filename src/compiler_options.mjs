@@ -4,33 +4,40 @@
 */
 export const DEBUG = true
 
-/** when true, we shall eliminate items that have no effect to the end user (although it might be useful enough for a libary developer). <br>
- * one such feature is the optional `doc` string under {@link SchemaNode}, which can come in hand for others extending your library, but not to the end browser user. <br>
+/** when `true`, `esbuild` minification is enabled <br>
  * @type {boolean}
  * @category Compiler Options
 */
 export const MINIFY = true
 
-/** do we wish to bundle the code into one javascript file? <br>
+/** when `true`, `esbuild` will bundle the code into one javascript file <br>
  * @type {boolean}
  * @category Compiler Options
 */
 export const BUNDLE = true
 
-/** define the set of primitive type codec functions not to include in your build, by setting their corresponding value to `true` <br>
- * the items presented here cannot be automatically ommited by `esbuild`, because the exported `encode` and `decode` functions of `"./primitive_codec.ts"` do reference them. <br>
- * only *you*, as the library utilizer, can know whether a certain portion is unused by your application. <br>
- * the minified space savings are not really impressive. you save about only `2.5kb` if you set everything to `true` (ie, discarding all primitive codecs).
+/** define the set of macro-flags that will result in the exclusion of some code in the compiled bundle <br>
+ * in general, the items presented here cannot be automatically ommited by `esbuild`, because they are being referenced by some other none-dead code. <br>
+ * only *you*, as the developer, can know whether a certain portion or referenced code is actually dead and unused by your application. <br>
+ * for these flags to work, **do not import** them into your js/ts source code. instead only **declare** them in your typescript files as `boolean`.
+ * while for js files, you can't do anything about declaring their existence.
+ * @example
+ * ```ts
+ * declare [DONOT_deadFunc2, DONOT_otherFunc,] = [boolean, boolean]
+ * export const func1 = () => {
+ * 	//lots of code
+ * 	if(never_occuring_condition === true) return deadFunc2()
+ * }
+ * const deadFunc2 = DONOT_deadFunc2 || (
+ * 	() => { console.log("you were not supposed to be here. you have made a terrible mistake") }
+ * )
+ * ```
+ * @category Compiler Options
 */
-export const DONOT_INCLUDE_PRIMITIVES = {
-	DONOT_BOOLEAN: false,
-	DONOT_CSTR: false,
-	DONOT_STR: false,
-	DONOT_BYTES: false,
-	DONOT_NUMBER: false,
-	DONOT_UVAR: false,
-	DONOT_IVAR: false,
+export const DONOT_INCLUDE = {
+	DONOT_deadFunc2: false,
+	DONOT_otherFunc: false,
 }
 
 //module.exports.compiler_options = { DEBUG, MINIFY, BUNDLE }
-export default { DEBUG, MINIFY, BUNDLE, ...DONOT_INCLUDE_PRIMITIVES }
+export default { DEBUG, MINIFY, BUNDLE, ...DONOT_INCLUDE }

@@ -9,10 +9,10 @@ esbuild.build({
 	loader: {
 		".html": "copy",
 	},
-	bundle: true, //compiler_options.BUNDLE,
-	//minify: compiler_options.MINIFY,
+	bundle: compiler_options.BUNDLE,
+	minify: compiler_options.MINIFY,
 	//mangleProps: /_$/,
-	platform: "browser",
+	platform: "neutral",
 	format: "esm",
 	target: "esnext",
 	plugins: [ solidPlugin(), vanillaExtractPlugin() ],
