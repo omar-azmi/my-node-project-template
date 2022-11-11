@@ -33,7 +33,10 @@ export interface hexStringOf_Options {
 	ket: string
 	/** do we want upper case letters for the hex-string? <br> **defaults to** `true` */
 	toUpperCase: boolean
-	/** provide an alernate number base to encode the numbers into. <br> **defaults to** `16` for actual hex-string */
+	/** provide an alernate number base to encode the numbers into. see {@link Number.toString} for more details. <br>
+	 * use `16` for a hex-string, or `2` for binary-string, accepted values must be between `2` and `36` <br>
+	 * **defaults to** `16`
+	*/
 	radix: number
 }
 

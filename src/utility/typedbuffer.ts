@@ -36,7 +36,7 @@ export const typed_array_constructor_of = <DType extends NumericDType = NumericD
 export const getEnvironmentEndianess = (): boolean => (new Uint8Array(Uint32Array.of(1).buffer))[0] === 1 ? true : false
 
 /** this variable dictates if the native endianess of your `TypedArray`s is little endian. */
-const env_le = getEnvironmentEndianess()
+export const env_le = getEnvironmentEndianess()
 
 /** swap the endianess of the provided `Uint8Array` buffer array in-place, given that each element has a byte-size of `bytesize`
  * @inplace

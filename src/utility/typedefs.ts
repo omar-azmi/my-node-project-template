@@ -122,7 +122,7 @@ export type ByteSize = DByteSize | "v"
 */
 export type NumericType = Exclude<`${NumericDType}${NumericEndianType}` | "uv" | "iv" | "u1" | "u1c" | "i1", `${"u1" | "u1c" | "i1"}${NumericEndianType}`>
 
-/** an array (regular javascript array) of numbers can be interpreted as an array of formated binary numbers. `NumericType`s `uv` and `iv` are excluded here */
+/** an array (regular javascript array) of numbers can be interpreted as an array of formated binary numbers. */
 export type NumericArrayType = `${NumericType}[]`
 
 /// STRUCTURE DEFINITIONS
